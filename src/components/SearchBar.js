@@ -1,11 +1,18 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-    state = {term: ''};
+    state = {
+        term: '',
+        suggestions: ['cars','flowers','people','dogs','cats','tech','react']
+    };
 
     onFormSubmit = e => {
         e.preventDefault();
         this.props.onSubmit(this.state.term);
+    }
+
+    onFormChange = e => {
+        this.setState({term: e.target.value});
     }
 
     render(){
@@ -18,15 +25,11 @@ class SearchBar extends React.Component {
                             list="search-items" 
                             name="search" 
                             autoComplete='off' 
-                            onChange={e => this.setState({term: e.target.value})
-                        }/>
+                            onChange={this.onFormChange}
+                        />
                         {/* Datalist may not be fully supported on all browsers. Autocomplete turned off to avoid known bugs */}
                         <datalist id="search-items">
-                            <option value="Internet Explorer" />
-                            <option value="Firefox" />
-                            <option value="Chrome" />
-                            <option value="Opera" />
-                            <option value="Safari" />
+                            {this.state.suggestions.map((suggestion, key)=> <option key ={key} value={suggestion}/>)}
                         </datalist>
                     </div>
                 </form>
