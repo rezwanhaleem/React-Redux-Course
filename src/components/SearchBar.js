@@ -15,6 +15,11 @@ class SearchBar extends React.Component {
         this.setState({term: e.target.value});
     }
 
+    onOptionSelect = e => {
+        if(this.state.suggestions.includes(e.target.value))
+            this.props.onSubmit(e.target.value);
+    }
+
     render(){
         return (
             <div className='ui segment'>
@@ -26,6 +31,7 @@ class SearchBar extends React.Component {
                             name="search" 
                             autoComplete='off' 
                             onChange={this.onFormChange}
+                            onInput={this.onOptionSelect}
                         />
                         {/* Datalist may not be fully supported on all browsers. Autocomplete turned off to avoid known bugs */}
                         <datalist id="search-items">
